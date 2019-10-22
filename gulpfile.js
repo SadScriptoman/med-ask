@@ -10,27 +10,6 @@ const gulp = require('gulp'),
     //browserSync = require("browser-sync"),
     //reload = browserSync.reload;
 
-gulp.task("pug", function(done){
-    gulp.src("./src/pug/*.pug")
-        .pipe(pug({pretty: true}))
-        .pipe(gulp.dest("./build/"));
-    done();
-});
-
-gulp.task("less", function(done){
-    gulp.src("./src/less/*.less")
-        .pipe(sourcemaps.init())
-        .pipe(less())
-        .pipe(prefixer())
-        .pipe(sourcemaps.write())
-        .pipe(gulp.dest("./build/css/"))
-        .pipe(cleanCSS({compatibility: 'ie8'}))
-        .pipe(sourcemaps.write())
-        .pipe(rename({suffix:".min"}))
-        .pipe(gulp.dest("./build/css/"));
-    done();
-});
-
 function pugTask(done){
     gulp.src("./src/pug/**/*.pug")
         .pipe(pug({pretty: true}))
@@ -42,9 +21,7 @@ function lessTask(done){
     gulp.src("./src/less/**/*.less")
         .pipe(sourcemaps.init())
         .pipe(less())
-        .pipe(prefixer({
-            browsers: ['last 2 version', 'safari 5', 'ie6', 'ie7', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4']
-        }))
+        .pipe(prefixer())
         .pipe(sourcemaps.write())
         .pipe(gulp.dest("./build/css/"))
         .pipe(cleanCSS({compatibility: 'ie8'}))
