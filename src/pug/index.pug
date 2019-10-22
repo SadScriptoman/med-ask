@@ -9,31 +9,35 @@ html(lang="en")
     body.centered-content
         main
             h3(class="insurance-header") Проверка услуг медицинского страхования
-            form(action="" class="insurance-main-form")
+            form(action="" class="insurance-main-form needs-validation" novalidate)
                 .insurance-type-block
                     input(type="radio" name="type" id="oms" checked)
                     label(for="oms") ОМС
                     input(type="radio" name="type" id="dms")
                     label(for="dms") ДМС
                 .insurance-number-block
-                    input(type="text" name="number" placeholder="Введите номер полиса")
+                    .form-group
+                        input(type="text" name="number" id="number" pattern="[0-9- ]{8,}" required placeholder="Введите номер полиса")
+                        .info.hidden Не менее 8 цифр.
                     .insurance-search-wrapper
                         .insurance-search
-                            input(type="search" name="company" placeholder="Выберите страховую компанию")
-                            ul.company-list
+                            input(type="search" name="company" required placeholder="Выберите страховую компанию")
+                            ul.search-list
                                 li СК Рандеву
                                 li СК МЕД-АСКЕР
                                 li Страх-трах
+                        .info Телефон 8 (495) 123-45-67
                 .insurance-services-block
                     h5 Выберите медицинские услуги
-                    form(action="")
-                        .insurance-search-wrapper
-                            .insurance-search
-                                input(type="search" name="service" placeholder="Введите запрашиваемую услугу для пациента")
-                                ul.company-list
-                                    li СК Рандеву
-                                    li СК МЕД-АСКЕР
-                                    li Страх-трах
+                    .insurance-search-wrapper
+                        .insurance-search
+                            input(type="search" name="service" required placeholder="Введите запрашиваемую услугу для пациента")
+                            ul.search-list
+                                li
+                                    img(src="", alt="", srcset="")
+                                    span СК Рандеву 
+                                li СК МЕД-АСКЕР
+                                li Страх-трах
                     .insurance-services-list
                         .service-item Первичный приём врача-стоматолога терапевта
                             button.btn-no-style &times;
@@ -43,6 +47,27 @@ html(lang="en")
                             button.btn-no-style &times;
                 .insurance-button-wrapper
                     button(type="submit" class="red") Проверить
+
+        script.
+            (function() {
+              'use strict';
+              window.addEventListener('load', function() {
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('needs-validation');
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                  form.addEventListener('submit', function(event) {
+                    if (form.checkValidity() === false) {
+                      event.preventDefault();
+                      event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                  }, false);
+                });
+              }, false);
+            })();
+
+            
 
                         
                 

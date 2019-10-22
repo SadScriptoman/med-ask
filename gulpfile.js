@@ -4,9 +4,10 @@ const gulp = require('gulp'),
     pug = require('gulp-pug'),
     sourcemaps = require('gulp-sourcemaps'),
     rename = require('gulp-rename'),
-    cleanCSS = require('gulp-clean-css');
-    //imagemin = require('gulp-imagemin'),
-    //pngquant = require('imagemin-pngquant'),
+    cleanCSS = require('gulp-clean-css'),
+    imagemin = require('gulp-imagemin'),
+    htmlValidator = require('gulp-w3c-html-validator'),
+    pngquant = require('gulp-pngquant');
     //browserSync = require("browser-sync"),
     //reload = browserSync.reload;
 
@@ -31,12 +32,35 @@ function lessTask(done){
     done();
 }
 
+function pngCompressTask(done){
+    gulp.src('./src/img/**/*.png')
+        .pipe(pngquant({
+            quality: '65-80'
+        }))
+        .pipe(gulp.dest('./build/src/img/'));
+    done();
+}
+
+function validateHtml(){
+    return gulp.src('./build/**/*.html')
+        .pipe(htmlValidator())
+        .pipe(htmlValidator.reporter()); 
+}
+
 function watchLess(){
     gulp.watch("./src/less/**/*.less", lessTask)
 }
 
 function watchPug(){
     gulp.watch("./src/pug/**/*.pug", pugTask)
+}
+
+function watchPng(){
+    gulp.watch("./src/img/**/*.pug", pngCompressTask)
+}
+
+function watchHtml(){
+    gulp.watch("./build/**/*.html", validateHtml)
 }
 
 function autopref(done){
@@ -47,5 +71,8 @@ function autopref(done){
 }
 
 gulp.task("prefix", autopref);
+gulp.task("png", pngCompressTask);
+gulp.task("pug", pugTask);
+gulp.task("less", lessTask);
 
-gulp.task("default", gulp.parallel(watchPug, watchLess));
+gulp.task("default", gulp.parallel(watchPug, watchLess, watchPng, watchHtml));

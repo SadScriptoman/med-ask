@@ -10,7 +10,7 @@
   <body class="centered-content">
     <main>
       <h3 class="insurance-header">Проверка услуг медицинского страхования</h3>
-      <form class="insurance-main-form" action="">
+      <form class="insurance-main-form needs-validation" action="" novalidate="novalidate">
         <div class="insurance-type-block">
           <input type="radio" name="type" id="oms" checked="checked"/>
           <label for="oms">ОМС</label>
@@ -18,32 +18,34 @@
           <label for="dms">ДМС</label>
         </div>
         <div class="insurance-number-block">
-          <input type="text" name="number" placeholder="Введите номер полиса"/>
+          <div class="form-group">
+            <input type="text" name="number" id="number" pattern="[0-9- ]{8,}" required="required" placeholder="Введите номер полиса"/>
+            <div class="info hidden">Не менее 8 цифр.</div>
+          </div>
           <div class="insurance-search-wrapper">
             <div class="insurance-search">
-              <input type="search" name="company" placeholder="Выберите страховую компанию"/>
-              <ul class="company-list">
+              <input type="search" name="company" required="required" placeholder="Выберите страховую компанию"/>
+              <ul class="search-list">
                 <li>СК Рандеву</li>
                 <li>СК МЕД-АСКЕР</li>
                 <li>Страх-трах</li>
               </ul>
             </div>
+            <div class="info">Телефон 8 (495) 123-45-67</div>
           </div>
         </div>
         <div class="insurance-services-block">
           <h5>Выберите медицинские услуги</h5>
-          <form action="">
-            <div class="insurance-search-wrapper">
-              <div class="insurance-search">
-                <input type="search" name="service" placeholder="Введите запрашиваемую услугу для пациента"/>
-                <ul class="company-list">
-                  <li>СК Рандеву</li>
-                  <li>СК МЕД-АСКЕР</li>
-                  <li>Страх-трах</li>
-                </ul>
-              </div>
+          <div class="insurance-search-wrapper">
+            <div class="insurance-search">
+              <input type="search" name="service" required="required" placeholder="Введите запрашиваемую услугу для пациента"/>
+              <ul class="search-list">
+                <li><img src="" alt="" srcset=""/><span>СК Рандеву </span></li>
+                <li>СК МЕД-АСКЕР</li>
+                <li>Страх-трах</li>
+              </ul>
             </div>
-          </form>
+          </div>
           <div class="insurance-services-list">
             <div class="service-item">Первичный приём врача-стоматолога терапевта
               <button class="btn-no-style">&times;</button>
@@ -61,5 +63,29 @@
         </div>
       </form>
     </main>
+    <script>
+      (function() {
+        'use strict';
+        window.addEventListener('load', function() {
+          // Fetch all the forms we want to apply custom Bootstrap validation styles to
+          var forms = document.getElementsByClassName('needs-validation');
+          // Loop over them and prevent submission
+          var validation = Array.prototype.filter.call(forms, function(form) {
+            form.addEventListener('submit', function(event) {
+              if (form.checkValidity() === false) {
+                event.preventDefault();
+                event.stopPropagation();
+              }
+              form.classList.add('was-validated');
+            }, false);
+          });
+        }, false);
+      })();
+      
+      
+      
+                  
+          
+    </script>
   </body>
 </html>
