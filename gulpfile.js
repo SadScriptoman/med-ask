@@ -24,11 +24,11 @@ function lessTask(done){
         .pipe(less())
         .pipe(prefixer())
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest("./build/css/"))
+        .pipe(gulp.dest("./build/src/css/"))
         .pipe(cleanCSS({compatibility: 'ie8'}))
         .pipe(sourcemaps.write())
         .pipe(rename({suffix:".min"}))
-        .pipe(gulp.dest("./build/css/"));
+        .pipe(gulp.dest("./build/src/css/"));
     done();
 }
 

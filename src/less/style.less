@@ -10,6 +10,7 @@
     font-size: 18px;
     font-family: 'Open Sans', sans-serif;
     box-sizing: border-box;
+    scroll-behavior: smooth;
 }
 
 //ПРИМЕСИ ДЛЯ АДАПТИВНОСТИ
@@ -130,21 +131,18 @@ form.was-validated{
         }
     }
 }
-    .info{
-        position: absolute;
-        top: 120%;
-        z-index: 0;
-        
-        padding: 0 20px;
-        width: 100%;
-        font-size: 14px;
-        
-        .transition(opacity);
+.info{
 
-        &.hidden{
-            opacity: 0;
-        }
+    margin-top: 7px;
+    padding: 0 20px;
+    width: 100%;
+    font-size: 14px;
+    
+    .transition(opacity);
+    &.hidden{
+        opacity: 0;
     }
+}
 
 input[type="text"], 
 input[type="password"], 
@@ -227,6 +225,30 @@ body{
     .mobile-max({margin-bottom: 20px; font-size: 22px;});
 }
 
+//полоса прокрутки для сайта
+
+::-webkit-scrollbar-button {
+    background-image:none;
+    background-repeat:no-repeat;
+    width:6px;
+    height:0px
+}
+
+::-webkit-scrollbar-track {
+    background: none;
+}
+
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    background-color:@green;
+}
+
+
+::-webkit-scrollbar{
+    width: 6px;
+}
+
 //Сама форма
 .insurance-main-form{
     display: flex;
@@ -275,7 +297,7 @@ body{
         flex-wrap: wrap;
 
         width: 100%;
-        margin-bottom: 53px;
+        margin-bottom: 43px;
 
         .tablet-max({margin-bottom: 30px;});
 
@@ -322,10 +344,22 @@ body{
             .mobile-max({margin-top: 20px; padding: 0;});
 
             .service-item{
+                position: relative;
                 width: ~"calc(50% - 14px)";
                 font-size: 14px;
                 margin-bottom: 10px;
-                .mobile-max({width: 100%; text-align: center;});
+                .mobile-max({width: 100%; text-align: center; position: static;});
+                > img{
+                    position: absolute;
+                    left: -24px;
+                    top: 2px;
+                    width: 18px;
+                    height: 18px;
+                    .mobile-max({position: relative; margin-right: 10px; left:0;});
+                }
+                span{
+                    font-size: 14px;
+                }
             }
         }
     }
@@ -333,14 +367,14 @@ body{
     //Невидимый врап, чтобы можно было спозиционировать сам блок с поиском
     .insurance-search-wrapper{
         position: relative;
-        height: 35px;
+        min-height: 35px;
         //Блок для поиска (с выпадающим списком)
         .insurance-search{
             position: absolute;
             z-index: 1;
 
             width: 100%;
-            max-height: ~"calc(38px * 3 + 35px)";
+            max-height: ~"calc(39px * 3 + 35px)";
             min-height: 35px;
 
             background: white;
@@ -350,6 +384,10 @@ body{
             border: 1px solid @input-border;
             border-radius: 15px;
             font-size: 14px;
+
+            + .info{
+                margin-top: 43px;
+            }
 
             //Поле поиска
             input[type="search"]{
@@ -373,9 +411,22 @@ body{
                 margin:0;
                 .transition(height);
                 li{
-                    padding: 11px 20px;
+                    height: 39px;
+
+                    padding: 0 20px;
                     cursor: pointer;
-                    font-size: 14px;
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: center;
+                    img{
+                        height: 25px;
+                        width: auto;
+
+                        margin-right: 11px;
+                    }
+                    span{
+                        font-size: 14px;
+                    }
                     &:hover{
                         background-color: @green;
                         color: white;
@@ -387,7 +438,10 @@ body{
                 border-color: @input-valid;
                 outline: none;
                 .search-list{
-                    height: ~"calc(38px * 3)";
+                    height: ~"calc(39px * 3)";
+                    &.scroll-y{
+                        overflow-y:auto;
+                    }
                 }
             }
         }

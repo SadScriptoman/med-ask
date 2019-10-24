@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
   <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <title>Document</title>
-    <link rel="stylesheet" href="css/style.min.css"/>
+    <link rel="stylesheet" href="src/css/style.min.css"/>
   </head>
   <body class="centered-content">
     <main>
       <h3 class="insurance-header">Проверка услуг медицинского страхования</h3>
-      <form class="insurance-main-form needs-validation" action="" novalidate="novalidate">
+      <form class="insurance-main-form needs-validation" action="/" novalidate="novalidate">
         <div class="insurance-type-block">
           <input type="radio" name="type" id="oms" checked="checked"/>
           <label for="oms">ОМС</label>
@@ -26,9 +26,12 @@
             <div class="insurance-search">
               <input type="search" name="company" required="required" placeholder="Выберите страховую компанию"/>
               <ul class="search-list">
-                <li>СК Рандеву</li>
-                <li>СК МЕД-АСКЕР</li>
-                <li>Страх-трах</li>
+                <li> <img src="src/img/randevu.png" alt="Рандеву"/><span>СК Рандеву</span></li>
+                <li> <img src="src/img/logo.png" alt="Мед-сканер"/><span>СК МЕД-СКАНЕР</span></li>
+                <li> <img src="src/img/light-bulb.png" alt="light-bulb"/><span>Страх-трах</span></li>
+                <li> <img src="src/img/randevu.png" alt="Рандеву"/><span>СК Рандеву</span></li>
+                <li> <img src="src/img/logo.png" alt="Мед-сканер"/><span>СК МЕД-СКАНЕР</span></li>
+                <li> <img src="src/img/light-bulb.png" alt="light-bulb"/><span>Страх-трах</span></li>
               </ul>
             </div>
             <div class="info">Телефон 8 (495) 123-45-67</div>
@@ -40,21 +43,21 @@
             <div class="insurance-search">
               <input type="search" name="service" required="required" placeholder="Введите запрашиваемую услугу для пациента"/>
               <ul class="search-list">
-                <li><img src="" alt="" srcset=""/><span>СК Рандеву </span></li>
-                <li>СК МЕД-АСКЕР</li>
-                <li>Страх-трах</li>
+                <li><span>СК Рандеву </span></li>
+                <li> <span>СК МЕД-АСКЕР</span></li>
+                <li> <span>Страх-трах</span></li>
               </ul>
             </div>
           </div>
           <div class="insurance-services-list">
-            <div class="service-item">Первичный приём врача-стоматолога терапевта
-              <button class="btn-no-style">&times;</button>
+            <div class="service-item"><img src="src/img/check.png" alt="check"/><span>Первичный приём врача-стоматолога терапевта</span>
+              <button class="btn-no-style"><img src="src/img/cross.png" alt="Cross"/></button>
             </div>
-            <div class="service-item">МРТ челюсти
-              <button class="btn-no-style">&times;</button>
+            <div class="service-item"> <img src="src/img/question.png" alt="question"/><span>МРТ челюсти</span>
+              <button class="btn-no-style"><img src="src/img/cross.png" alt="Cross"/></button>
             </div>
-            <div class="service-item">Полирование челюсти
-              <button class="btn-no-style">&times;</button>
+            <div class="service-item"><img src="src/img/stop.png" alt="question"/><span>Полирование челюсти</span>
+              <button class="btn-no-style"><img src="src/img/cross.png" alt="Cross"/></button>
             </div>
           </div>
         </div>
@@ -67,10 +70,19 @@
       (function() {
         'use strict';
         window.addEventListener('load', function() {
+          let searchLists = document.getElementsByClassName('search-list');
+          if (searchLists) {
+              let addScroll = Array.prototype.filter.call(searchLists, function(searchList) {
+                  if ((searchList.getElementsByTagName('li').length > 3) ){
+                      searchList.classList.add("scroll-y");
+                  }
+                  
+              });
+          }
           // Fetch all the forms we want to apply custom Bootstrap validation styles to
-          var forms = document.getElementsByClassName('needs-validation');
+          let forms = document.getElementsByClassName('needs-validation');
           // Loop over them and prevent submission
-          var validation = Array.prototype.filter.call(forms, function(form) {
+          let validation = Array.prototype.filter.call(forms, function(form) {
             form.addEventListener('submit', function(event) {
               if (form.checkValidity() === false) {
                 event.preventDefault();

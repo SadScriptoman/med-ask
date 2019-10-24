@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-html(lang="en")
+html(lang="ru")
     head
         meta(charset="UTF-8")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         meta(http-equiv="X-UA-Compatible", content="ie=edge")
         title Document
-        link(rel="stylesheet", href="css/style.min.css")
+        link(rel="stylesheet", href="src/css/style.min.css")
     body.centered-content
         main
             h3(class="insurance-header") Проверка услуг медицинского страхования
-            form(action="" class="insurance-main-form needs-validation" novalidate)
+            form(action="/" class="insurance-main-form needs-validation" novalidate)
                 .insurance-type-block
                     input(type="radio" name="type" id="oms" checked)
                     label(for="oms") ОМС
@@ -23,9 +23,24 @@ html(lang="en")
                         .insurance-search
                             input(type="search" name="company" required placeholder="Выберите страховую компанию")
                             ul.search-list
-                                li СК Рандеву
-                                li СК МЕД-АСКЕР
-                                li Страх-трах
+                                li 
+                                    img(src="src/img/randevu.png", alt="Рандеву")
+                                    span СК Рандеву
+                                li 
+                                    img(src="src/img/logo.png", alt="Мед-сканер")
+                                    span СК МЕД-СКАНЕР
+                                li 
+                                    img(src="src/img/light-bulb.png", alt="light-bulb")
+                                    span Страх-трах
+                                li 
+                                    img(src="src/img/randevu.png", alt="Рандеву")
+                                    span СК Рандеву
+                                li 
+                                    img(src="src/img/logo.png", alt="Мед-сканер")
+                                    span СК МЕД-СКАНЕР
+                                li 
+                                    img(src="src/img/light-bulb.png", alt="light-bulb")
+                                    span Страх-трах
                         .info Телефон 8 (495) 123-45-67
                 .insurance-services-block
                     h5 Выберите медицинские услуги
@@ -34,17 +49,27 @@ html(lang="en")
                             input(type="search" name="service" required placeholder="Введите запрашиваемую услугу для пациента")
                             ul.search-list
                                 li
-                                    img(src="", alt="", srcset="")
                                     span СК Рандеву 
-                                li СК МЕД-АСКЕР
-                                li Страх-трах
+                                li 
+                                    span СК МЕД-АСКЕР
+                                li 
+                                    span Страх-трах
                     .insurance-services-list
-                        .service-item Первичный приём врача-стоматолога терапевта
-                            button.btn-no-style &times;
-                        .service-item МРТ челюсти
-                            button.btn-no-style &times;
-                        .service-item Полирование челюсти
-                            button.btn-no-style &times;
+                        .service-item
+                            img(src="src/img/check.png", alt="check")
+                            span Первичный приём врача-стоматолога терапевта
+                            button.btn-no-style
+                                img(src="src/img/cross.png", alt="Cross")
+                        .service-item 
+                            img(src="src/img/question.png", alt="question")
+                            span МРТ челюсти
+                            button.btn-no-style
+                                img(src="src/img/cross.png", alt="Cross")
+                        .service-item
+                            img(src="src/img/stop.png", alt="question")
+                            span Полирование челюсти
+                            button.btn-no-style
+                                img(src="src/img/cross.png", alt="Cross")
                 .insurance-button-wrapper
                     button(type="submit" class="red") Проверить
 
@@ -52,10 +77,19 @@ html(lang="en")
             (function() {
               'use strict';
               window.addEventListener('load', function() {
+                let searchLists = document.getElementsByClassName('search-list');
+                if (searchLists) {
+                    let addScroll = Array.prototype.filter.call(searchLists, function(searchList) {
+                        if ((searchList.getElementsByTagName('li').length > 3) ){
+                            searchList.classList.add("scroll-y");
+                        }
+                        
+                    });
+                }
                 // Fetch all the forms we want to apply custom Bootstrap validation styles to
-                var forms = document.getElementsByClassName('needs-validation');
+                let forms = document.getElementsByClassName('needs-validation');
                 // Loop over them and prevent submission
-                var validation = Array.prototype.filter.call(forms, function(form) {
+                let validation = Array.prototype.filter.call(forms, function(form) {
                   form.addEventListener('submit', function(event) {
                     if (form.checkValidity() === false) {
                       event.preventDefault();
